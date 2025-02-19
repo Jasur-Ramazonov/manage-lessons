@@ -142,7 +142,7 @@ const Home = (arg: {
           Add lesson
         </button>
       </div>
-      {posts ? (
+      {posts.length ? (
         <div className="p-5 d-flex gap-2">
           {posts.map((itm, i) => {
             return (
