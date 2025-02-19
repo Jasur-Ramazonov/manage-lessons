@@ -5,6 +5,8 @@ import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import { apiCall } from "./utils/apiCall";
 import { ToastContainer, toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface Video {
   name: string;
@@ -140,38 +142,42 @@ const Home = (arg: {
           Add lesson
         </button>
       </div>
-      <div className="p-5 d-flex gap-2">
-        {posts.map((itm, i) => {
-          return (
-            <div
-              onDoubleClick={() => editPost(i)}
-              className="card p-2 gap-2"
-              style={{
-                width: "200px",
-                height: "200px",
-                cursor: "pointer",
-              }}
-            >
-              <h5 className="text-center">{itm.lessonName}</h5>
-              <p className="text-center">
-                There are {itm.videos.length} lessons
-              </p>
-              <button
-                onClick={() => showVideos(itm.id!)}
-                className="btn btn-primary"
+      {posts ? (
+        <div className="p-5 d-flex gap-2">
+          {posts.map((itm, i) => {
+            return (
+              <div
+                onDoubleClick={() => editPost(i)}
+                className="card p-2 gap-2"
+                style={{
+                  width: "200px",
+                  height: "200px",
+                  cursor: "pointer",
+                }}
               >
-                show lessons
-              </button>
-              <button
-                onClick={() => deletePosts(itm.id!)}
-                className="btn btn-danger"
-              >
-                delete
-              </button>
-            </div>
-          );
-        })}
-      </div>
+                <h5 className="text-center">{itm.lessonName}</h5>
+                <p className="text-center">
+                  There are {itm.videos.length} lessons
+                </p>
+                <button
+                  onClick={() => showVideos(itm.id!)}
+                  className="btn btn-primary"
+                >
+                  show lessons
+                </button>
+                <button
+                  onClick={() => deletePosts(itm.id!)}
+                  className="btn btn-danger"
+                >
+                  delete
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <Skeleton width={200} height={200} />
+      )}
 
       {/* Modal */}
       <Rodal visible={isOpen} onClose={() => setIsOpen(false)}>

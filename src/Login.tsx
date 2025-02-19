@@ -36,7 +36,6 @@ const Login = (arg: {
         return;
       }
     }
-
     reset();
     navigate("/SignUp");
   }
