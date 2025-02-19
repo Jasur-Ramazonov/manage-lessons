@@ -60,10 +60,6 @@ const Home = (arg: {
     navigate("/login");
   }, []);
 
-  useEffect(() => {
-    setHasPosts(true);
-  }, [posts]);
-
   async function addVideo(data: { lessonName: string }) {
     let post = {
       lessonName: data.lessonName,
@@ -107,6 +103,7 @@ const Home = (arg: {
   async function getPosts() {
     try {
       let res = await apiCall("GET", `/posts?userId=${id}`, "");
+      setHasPosts(true);
       setPosts(res.data);
       console.log(res.data);
     } catch (error) {
@@ -181,7 +178,14 @@ const Home = (arg: {
           })}
         </div>
       ) : (
-        <Skeleton width={200} height={200} />
+        <div className="d-flex justify-content-center gap-3 p-5">
+          <Skeleton width={200} height={200} />
+          <Skeleton width={200} height={200} />
+          <Skeleton width={200} height={200} />
+          <Skeleton width={200} height={200} />
+          <Skeleton width={200} height={200} />
+          <Skeleton width={200} height={200} />
+        </div>
       )}
 
       {/* Modal */}

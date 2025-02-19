@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { apiCall } from "./utils/apiCall";
 import "rodal/lib/rodal.css";
 import Rodal from "rodal";
+import { ToastContainer, toast } from "react-toastify";
 
 interface User {
   id: string;
@@ -32,6 +33,10 @@ const UserPanel = (arg: {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
 
   const { id } = useParams();
+
+  const notify = () => {
+    toast.info("Bu foydalanuvchida hech qanday ma'lumot topilmadi.");
+  };
 
   useEffect(() => {
     if (localStorage.getItem("isUser")) {
@@ -71,6 +76,10 @@ const UserPanel = (arg: {
     try {
       let res = await apiCall("GET", `/posts?userId=${id}`, "");
       setPosts(res.data);
+      if (!res.data[0]) {
+        notify();
+        console.log("nima");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -183,6 +192,7 @@ const UserPanel = (arg: {
           </table>
         </div>
       </Rodal>
+      <ToastContainer />
     </div>
   );
 };
