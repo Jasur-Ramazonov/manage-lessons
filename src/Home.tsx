@@ -35,7 +35,7 @@ const Home = (arg: {
 
   const [videos, setVideos] = useState<Video[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [posts, setPosts] = useState<Post[] | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [currentPostId, setCurrentPostId] = useState<string>("");
   const [currentPost, setCurrentPost] = useState<Post>({
     lessonName: "",
@@ -45,6 +45,7 @@ const Home = (arg: {
   const [lessonNameValue, setLessonNameValue] = useState("");
   const [isOpen2, setIsOpen2] = useState(false);
   const { id } = useParams();
+  const [hasPosts, setHasPosts] = useState<boolean>(false);
 
   // const [videoName, setVideoName] = useState("");   Hozircha kerak bo'lmayopti agar kerak bo'lmasa udalit qil
 
@@ -58,6 +59,10 @@ const Home = (arg: {
     }
     navigate("/login");
   }, []);
+
+  useEffect(() => {
+    setHasPosts(true);
+  }, [posts]);
 
   async function addVideo(data: { lessonName: string }) {
     let post = {
@@ -110,7 +115,7 @@ const Home = (arg: {
   }
 
   function showVideos(id: string) {
-    let currentPost1 = posts.find((itm) => itm.id === id);
+    let currentPost1 = posts!.find((itm) => itm.id === id);
     setCurrentPost(currentPost1!);
     setIsOpen2(true);
   }
@@ -126,9 +131,9 @@ const Home = (arg: {
 
   function editPost(index: number) {
     setIsOpen(true);
-    setLessonNameValue(posts[index].lessonName);
-    setVideos(posts[index].videos);
-    setCurrentPostId(posts[index].id!);
+    setLessonNameValue(posts![index].lessonName);
+    setVideos(posts![index].videos);
+    setCurrentPostId(posts![index].id!);
   }
 
   function changeLessonNameInp(e: React.ChangeEvent<HTMLInputElement>) {
@@ -142,7 +147,7 @@ const Home = (arg: {
           Add lesson
         </button>
       </div>
-      {posts.length ? (
+      {hasPosts ? (
         <div className="p-5 d-flex gap-2">
           {posts.map((itm, i) => {
             return (
