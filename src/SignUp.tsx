@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { apiCall } from "./utils/apiCall";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 interface User {
   name: string;
@@ -12,9 +12,15 @@ interface User {
 
 const SignUp = () => {
   const { register, handleSubmit, reset } = useForm<User>();
+
+  const notify = () => {
+    toast.warning("Iltimos ro'yxatdan o'ting!");
+  };
+
   let users: User[] = [];
   useEffect(() => {
     getUser();
+    notify();
   }, []);
 
   const navigate = useNavigate();

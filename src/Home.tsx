@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import { apiCall } from "./utils/apiCall";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Video {
   name: string;
@@ -23,6 +23,9 @@ const Home = (arg: {
   setId: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const navigate = useNavigate();
+  const notify = () => {
+    toast.success("siz muvaffaqiyatli profilga kirdingiz!");
+  };
 
   const { register, handleSubmit, reset } = useForm<{
     lessonName: string;
@@ -48,6 +51,7 @@ const Home = (arg: {
       getPosts();
       arg.setIsHome(true);
       arg.setId(id!);
+      notify();
       return;
     }
     navigate("/login");

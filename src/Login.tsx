@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { apiCall } from "./utils/apiCall";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 interface User {
   id: string;
@@ -26,13 +25,6 @@ const Login = (arg: {
   const { handleSubmit, reset, register } = useForm<User>();
 
   function checkUser(data: User) {
-    const toastify = (status: boolean) => {
-      if (status) {
-        toast.success("siz profilingizga kirdingiz");
-      }
-      toast.error("siz ro'yxatdan o'tmagansiz");
-    };
-
     for (let i = 0; i < users.length; ++i) {
       if (
         users[i].email === data.email &&
@@ -44,7 +36,7 @@ const Login = (arg: {
         return;
       }
     }
-    toastify(false);
+
     reset();
     navigate("/SignUp");
   }
