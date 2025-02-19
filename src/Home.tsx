@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
 import { apiCall } from "./utils/apiCall";
+import { ToastContainer } from "react-toastify";
 
 interface Video {
   name: string;
@@ -250,6 +251,7 @@ const Home = (arg: {
           </table>
         </div>
       </Rodal>
+      <ToastContainer />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { apiCall } from "./utils/apiCall";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 interface User {
   name: string;
@@ -83,6 +84,7 @@ const SignUp = () => {
           <button className="btn btn-primary">Log in</button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
