@@ -1,4 +1,3 @@
-import React from "react";
 import Rasm from "./assets/maxresdefault.jpg";
 
 const PageNotFound = () => {
