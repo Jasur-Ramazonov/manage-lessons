@@ -35,7 +35,7 @@ const Home = (arg: {
 
   const [videos, setVideos] = useState<Video[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<Post[] | null>(null);
   const [currentPostId, setCurrentPostId] = useState<string>("");
   const [currentPost, setCurrentPost] = useState<Post>({
     lessonName: "",
