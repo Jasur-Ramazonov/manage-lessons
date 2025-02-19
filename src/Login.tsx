@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { apiCall } from "./utils/apiCall";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
 interface User {
   id: string;
   email: string;
@@ -25,19 +25,22 @@ const Login = (arg: {
   const { handleSubmit, reset, register } = useForm<User>();
 
   function checkUser(data: User) {
+    const toastify = () => {
+      toast.error("siz ro'yxatdan o'tmagansiz");
+    };
+
     for (let i = 0; i < users.length; ++i) {
       if (
         users[i].email === data.email &&
         users[i].password === data.password
       ) {
-        console.log("salom");
         localStorage.setItem("isUser", "true");
         navigate(`/${users[i].id}`);
         arg.setId(users[i].id);
         return;
       }
     }
-    alert("Siz ro'yxatdan o'tmagan siz iltimos ro'yxatdan o'ting");
+    toastify();
     reset();
     navigate("/SignUp");
   }
