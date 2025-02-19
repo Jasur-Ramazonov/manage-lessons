@@ -25,7 +25,10 @@ const Login = (arg: {
   const { handleSubmit, reset, register } = useForm<User>();
 
   function checkUser(data: User) {
-    const toastify = () => {
+    const toastify = (status: boolean) => {
+      if (status) {
+        toast.success("siz profilingizga kirdingiz");
+      }
       toast.error("siz ro'yxatdan o'tmagansiz");
     };
 
@@ -40,7 +43,7 @@ const Login = (arg: {
         return;
       }
     }
-    toastify();
+    toastify(false);
     reset();
     navigate("/SignUp");
   }
