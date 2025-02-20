@@ -13,12 +13,11 @@ interface User {
 const Login = (arg: {
   setId: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  let users: User[] = [];
   const navigate = useNavigate();
 
   useEffect(() => {
     apiCall("GET", "/users", "").then((res) => {
-      users = res.data;
+      setusers(res.data);
     });
   }, []);
 
@@ -27,6 +26,7 @@ const Login = (arg: {
   const [displayPassword, setDisplayPassword] = useState("none");
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
+  const [users, setusers] = useState<User[]>([]);
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex =
@@ -34,6 +34,7 @@ const Login = (arg: {
 
   function checkUser(data: User) {
     if (isEmail && isPassword) {
+      console.log(users);
       for (let i = 0; i < users.length; ++i) {
         if (
           users[i].email === data.email &&
